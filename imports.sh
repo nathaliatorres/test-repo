@@ -1,0 +1,7 @@
+#!/bin/sh
+set -e
+
+"$1" import -var-file environments/sg.tfvars 'module.virtual_network.azurerm_virtual_network.this' '/subscriptions/a97621d8-9158-4681-81b6-38b1222afba4/resourceGroups/Kabibeispiel/providers/Microsoft.Network/virtualNetworks/Kabibeispiel'
+"$1" import -var-file environments/sg.tfvars 'module.virtual_network.azurerm_subnet.this["subnet1"]' '/subscriptions/a97621d8-9158-4681-81b6-38b1222afba4/resourceGroups/Kabibeispiel/providers/Microsoft.Network/virtualNetworks/Kabibeispiel/subnets/subnet1'
+"$1" import -var-file environments/sg.tfvars 'module.virtual_network.azurerm_subnet.this["subnet2"]' '/subscriptions/a97621d8-9158-4681-81b6-38b1222afba4/resourceGroups/Kabibeispiel/providers/Microsoft.Network/virtualNetworks/Kabibeispiel/subnets/subnet2'
+"$1" import -var-file environments/sg.tfvars 'module.virtual_network.azurerm_subnet.this["subnet3"]' '/subscriptions/a97621d8-9158-4681-81b6-38b1222afba4/resourceGroups/Kabibeispiel/providers/Microsoft.Network/virtualNetworks/Kabibeispiel/subnets/subnet3'
