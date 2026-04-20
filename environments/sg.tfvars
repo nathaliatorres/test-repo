@@ -1,0 +1,6 @@
+region               = "global"
+role_assignment_name = "8e90d35e-48b2-453b-a6e6-c146f9bf731d"
+scope                = "/"
+role_definition_id   = "/subscriptions/a97621d8-9158-4681-81b6-38b1222afba4/providers/Microsoft.Authorization/roleDefinitions/18d7d88d-d35e-4fb5-a5c3-7773c20a72d9"
+principal_id         = "168ba27d-fabc-48a8-a995-77fc63cf3c81"
+principal_type       = "User"
