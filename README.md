@@ -1,5 +1,4 @@
 # terraform-null-cat
-# terraform-null-cat2
 IAC without any paid resource.
 
 
