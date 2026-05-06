@@ -10,7 +10,9 @@ resource "azurerm_virtual_machine" "this" {
     type = var.identity_type
   }
 
-  additional_capabilities {}
+  additional_capabilities {
+    ultra_ssd_enabled = false
+  }
 
   os_profile {
     computer_name  = var.computer_name
