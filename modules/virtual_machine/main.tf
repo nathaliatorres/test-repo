@@ -10,6 +10,8 @@ resource "azurerm_virtual_machine" "this" {
     type = var.identity_type
   }
 
+  additional_capabilities {}
+
   os_profile {
     computer_name  = var.computer_name
     admin_username = var.admin_username
