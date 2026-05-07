@@ -1,0 +1,6 @@
+resource "aws_vpc" "this" {
+  cidr_block                       = var.cidr_block
+  instance_tenancy                 = var.instance_tenancy
+  assign_generated_ipv6_cidr_block = var.assign_generated_ipv6_cidr_block
+  tags                             = var.tags
+}
