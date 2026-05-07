@@ -1,0 +1,6 @@
+region                = "global"
+role_assignment_name  = "fc8a01aa-18b4-4294-8501-9632ec1d9ea6"
+role_assignment_scope = "/providers/Microsoft.Management/managementGroups/e486c990-3cab-4813-a86a-77b4c6b8f3d6"
+role_definition_id    = "/providers/Microsoft.Authorization/roleDefinitions/acdd72a7-3385-48ef-bd42-f606fba81ae7"
+principal_id          = "4e29a6a4-5d2c-49e1-af6f-c7bdcc3b94c9"
+principal_type        = "ServicePrincipal"
