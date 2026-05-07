@@ -1,81 +1,43 @@
-terraform {
-  required_version = ">= 1.0"
-  
-  required_providers {
-    null = {
-      source  = "hashicorp/null"
-      version = "~> 3.0"
-    }
-  }
+module "vpc" {
+  source = "./modules/vpc"
+
+  cidr_block                       = var.vpc_cidr_block
+  instance_tenancy                 = var.vpc_instance_tenancy
+  assign_generated_ipv6_cidr_block = true
+  tags                             = var.vpc_tags
 }
 
-provider "null" {}
+module "lb" {
+  source = "./modules/lb"
 
-# Variables to facilitate testing - new change
-variable "environment" {
-  description = "Environment name"
-  type        = string
-  default     = "dev"
+  name                             = var.lb_name
+  internal                         = var.lb_internal
+  load_balancer_type               = var.lb_load_balancer_type
+  subnets                          = var.lb_subnets
+  ip_address_type                  = var.lb_ip_address_type
+  enable_cross_zone_load_balancing = var.lb_enable_cross_zone_load_balancing
+  enable_deletion_protection       = var.lb_enable_deletion_protection
+  dns_record_client_routing_policy = var.lb_dns_record_client_routing_policy
+  access_logs                      = var.lb_access_logs
+  tags                             = var.lb_tags
 }
 
-variable "project_name" {
-  description = "Project name"
-  type        = string
-  default     = "stackguardian-test"
+module "lb_target_group" {
+  source = "./modules/lb_target_group"
+
+  name                 = var.tg_name
+  port                 = var.tg_port
+  protocol             = var.tg_protocol
+  target_type          = var.tg_target_type
+  ip_address_type      = var.tg_ip_address_type
+  vpc_id               = module.vpc.vpc_id
+  health_check         = var.tg_health_check
+  deregistration_delay = var.tg_deregistration_delay
+  tags                 = var.tg_tags
 }
 
-variable "app_version" {
-  description = "Application version - change this to force updates"
-  type        = string
-  default     = "1.0.0"
-}
+module "instance" {
+  source = "./modules/instance"
 
-# Null resource - exists only in state, perfect for testing
-resource "null_resource" "main_deployment" {
-  triggers = {
-    environment = var.environment
-    project     = var.project_name
-    version     = var.app_version
-  }
-
-  provisioner "local-exec" {
-    command = "echo 'Deployment completed for ${var.project_name} in ${var.environment}'"
-  }
-}
-
-# Another null resource for testing
-resource "null_resource" "configuration" {
-  triggers = {
-    config_data = jsonencode({
-      project     = var.project_name
-      environment = var.environment
-      version     = var.app_version
-      enabled     = true
-    })
-  }
-
-  provisioner "local-exec" {
-    command = "echo 'Configuration applied'"
-  }
-}
-
-# Outputs to view the configuration
-output "deployment_info" {
-  description = "Deployment information"
-  value = {
-    project     = var.project_name
-    environment = var.environment
-    version     = var.app_version
-    resource_id = null_resource.main_deployment.id
-  }
-}
-
-output "configuration_data" {
-  description = "Configuration data"
-  value = jsondecode(null_resource.configuration.triggers.config_data)
-}
-
-output "deployment_id" {
-  description = "Deployment resource ID"
-  value       = null_resource.main_deployment.id
+  instances = var.instances
 }
