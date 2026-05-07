@@ -60,16 +60,16 @@ instances = {
       version = "10"
     }
     user_data = <<-EOT
-      #cloud-config
-      repo_update: true
-      repo_upgrade: security
-      runcmd:
-        - echo "ECS_CLUSTER=admin-workflow-qa" >> /etc/ecs/ecs.config
-        - echo "ECS_BACKEND_HOST=" >> /etc/ecs/ecs.config
-        - echo 'ECS_INSTANCE_ATTRIBUTES={"type":"shared"}' >> /etc/ecs/ecs.config
-      output: { all : '| tee -a /var/log/cloud-init-output.log' }
-      final_message: "The system is finally up, after $UPTIME seconds"
-    EOT
+#cloud-config
+repo_update: true
+repo_upgrade: security
+runcmd:
+  - echo "ECS_CLUSTER=admin-workflow-qa" >> /etc/ecs/ecs.config
+  - echo "ECS_BACKEND_HOST=" >> /etc/ecs/ecs.config
+  - echo 'ECS_INSTANCE_ATTRIBUTES={"type":"shared"}' >> /etc/ecs/ecs.config
+output: { all : '| tee -a /var/log/cloud-init-output.log' }
+final_message: "The system is finally up, after $UPTIME seconds"
+EOT
     metadata_options = {
       http_endpoint               = "enabled"
       http_protocol_ipv6          = "disabled"
