@@ -1,0 +1,6 @@
+region             = "global"
+name               = "37ddbac1-3a66-42ab-aeb2-bb167977fe47"
+scope              = "/subscriptions/a97621d8-9158-4681-81b6-38b1222afba4"
+role_definition_id = "/subscriptions/a97621d8-9158-4681-81b6-38b1222afba4/providers/Microsoft.Authorization/roleDefinitions/f58310d9-a9f6-439a-9e8d-f62e7b41a168"
+principal_id       = "b3b38e62-0724-4d84-91e8-e3f17bf3b9f2"
+principal_type     = "User"
