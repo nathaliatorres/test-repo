@@ -1,24 +1,24 @@
 variable "name" {
-  description = "The UUID/GUID for this Role Assignment"
   type        = string
+  description = "The UUID/GUID for this role assignment"
 }
 
 variable "scope" {
-  description = "The scope at which the Role Assignment applies"
   type        = string
+  description = "The scope at which the role assignment applies"
 }
 
 variable "role_definition_id" {
-  description = "The Scoped-ID of the Role Definition to assign"
   type        = string
+  description = "The scoped ID of the role definition to assign"
 }
 
 variable "principal_id" {
-  description = "The ID of the principal (User, Group or Service Principal) to assign the role to"
   type        = string
+  description = "The ID of the principal (user, group, or service principal) to assign the role to"
 }
 
 variable "principal_type" {
-  description = "The type of the principal_id (User, Group or ServicePrincipal)"
   type        = string
+  description = "The type of the principal_id (User, Group, or ServicePrincipal)"
 }
