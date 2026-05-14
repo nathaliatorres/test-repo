@@ -1,4 +1,4 @@
 output "role_assignment_id" {
-  description = "The Role Assignment ID"
+  description = "The ID of the role assignment"
   value       = module.role_assignment.id
 }

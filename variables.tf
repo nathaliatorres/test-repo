@@ -1,29 +1,29 @@
 variable "region" {
-  description = "The Azure region for the provider"
   type        = string
+  description = "The Azure region for the provider"
 }
 
 variable "role_assignment_name" {
-  description = "The UUID/GUID for the Role Assignment"
   type        = string
+  description = "The UUID/GUID for the role assignment"
 }
 
 variable "role_assignment_scope" {
-  description = "The scope at which the Role Assignment applies"
   type        = string
+  description = "The scope at which the role assignment applies"
 }
 
 variable "role_definition_id" {
-  description = "The Scoped-ID of the Role Definition to assign"
   type        = string
+  description = "The scoped ID of the role definition to assign"
 }
 
 variable "principal_id" {
-  description = "The ID of the principal to assign the role to"
   type        = string
+  description = "The ID of the principal to assign the role to"
 }
 
 variable "principal_type" {
-  description = "The type of the principal_id (User, Group or ServicePrincipal)"
   type        = string
+  description = "The type of the principal_id (User, Group, or ServicePrincipal)"
 }
