@@ -1,52 +1,60 @@
-# vpc-ap-southeast-1
+# role-assignment-stack
 
 ## Description
 
-Default VPC infrastructure in ap-southeast-1.
+Azure role assignment granting a user a specific role at root scope.
 
 ## Module Overview
 
-| Module | Description |
-|--------|-------------|
-| `vpc` | Manages the AWS VPC and its core configuration |
+| Module | Description | Source |
+|--------|-------------|--------|
+| `role_assignment` | Manages an Azure role assignment for a user principal | `./modules/role_assignment` |
+
+## Resources
+
+| Resource Type | Logical Name | Description |
+|---------------|--------------|-------------|
+| `azurerm_role_assignment` | `this` | Role assignment granting a principal a role at a given scope |
 
 ## Variables Reference
 
 | Name | Type | Description | Default |
 |------|------|-------------|---------|
-| `region` | `string` | AWS region where resources will be managed | `"ap-southeast-1"` |
-| `cidr_block` | `string` | The IPv4 CIDR block for the VPC | `"172.31.0.0/16"` |
-| `instance_tenancy` | `string` | Tenancy option for instances launched into the VPC | `"default"` |
+| `region` | `string` | The Azure region for the provider | — |
+| `role_assignment_name` | `string` | The UUID/GUID for the role assignment | — |
+| `role_assignment_scope` | `string` | The scope at which the role assignment applies | — |
+| `role_definition_id` | `string` | The scoped ID of the role definition to assign | — |
+| `principal_id` | `string` | The ID of the principal to assign the role to | — |
+| `principal_type` | `string` | The type of the principal_id (User, Group, or ServicePrincipal) | — |
 
 ## Outputs Reference
 
 | Name | Description |
 |------|-------------|
-| `vpc_id` | The ID of the VPC |
+| `role_assignment_id` | The ID of the role assignment |
 
 ## Usage Instructions
 
 ### 1. Initialize
 
 ```sh
-terraform init
+tofu init
 ```
 
 ### 2. Import existing resources
 
 ```sh
-chmod +x imports.sh
-./imports.sh terraform
+./imports.sh tofu
 ```
 
 ### 3. Plan
 
 ```sh
-terraform plan -var-file environments/sg.tfvars
+tofu plan -var-file environments/sg.tfvars
 ```
 
 ### 4. Apply
 
 ```sh
-terraform apply -var-file environments/sg.tfvars
+tofu apply -var-file environments/sg.tfvars
 ```
