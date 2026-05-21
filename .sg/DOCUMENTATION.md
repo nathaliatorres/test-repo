@@ -1,60 +1,59 @@
-# role-assignment-contributor
+# default-security-group
 
 ## Description
 
-Assigns the Contributor built-in role to a user at the subscription scope.
+Default VPC security group with self-referencing ingress and all-traffic egress.
 
 ## Module Overview
 
 | Module | Description |
 |--------|-------------|
-| `role_assignment` | Manages an Azure role assignment for a user principal at subscription scope |
+| `security_group` | Manages the default VPC security group |
 
 ## Resources
 
-| Resource Type | Description |
-|---------------|-------------|
-| `azurerm_role_assignment` | Azure RBAC role assignment binding a principal to a role at a given scope |
+| Resource | Type | Description |
+|----------|------|-------------|
+| `aws_security_group.this` | `aws_security_group` | Default VPC security group |
 
 ## Variables Reference
 
-| Name | Type | Description |
-|------|------|-------------|
-| `region` | `string` | The Azure region for the provider |
-| `role_assignment_name` | `string` | The UUID/GUID for the Role Assignment |
-| `role_assignment_scope` | `string` | The scope at which the Role Assignment applies |
-| `role_definition_id` | `string` | The Scoped-ID of the Role Definition to assign |
-| `principal_id` | `string` | The ID of the principal to assign the role to |
-| `principal_type` | `string` | The type of the principal_id (User, Group or ServicePrincipal) |
+| Name | Type | Description | Default |
+|------|------|-------------|---------|
+| `region` | `string` | AWS region | `"ap-southeast-1"` |
+| `name` | `string` | Name of the security group | `"default"` |
+| `description` | `string` | Description of the security group | `"default VPC security group"` |
+| `vpc_id` | `string` | VPC ID to associate the security group with | `"vpc-05fed6e9ac0f64a6e"` |
 
 ## Outputs Reference
 
 | Name | Description |
 |------|-------------|
-| `role_assignment_id` | The Role Assignment ID |
+| `security_group_id` | ID of the security group |
+| `security_group_arn` | ARN of the security group |
 
 ## Usage Instructions
 
 ### 1. Initialize
 
 ```sh
-terraform init
+tofu init
 ```
 
-### 2. Import existing resources
+### 2. Import Existing Resources
 
 ```sh
-./imports.sh terraform
+./imports.sh tofu
 ```
 
 ### 3. Plan
 
 ```sh
-terraform plan -var-file environments/sg.tfvars
+tofu plan -var-file environments/sg.tfvars
 ```
 
 ### 4. Apply
 
 ```sh
-terraform apply -var-file environments/sg.tfvars
+tofu apply -var-file environments/sg.tfvars
 ```

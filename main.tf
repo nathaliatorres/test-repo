@@ -1,8 +1,6 @@
-module "role_assignment" {
-  source             = "./modules/role_assignment"
-  name               = var.role_assignment_name
-  scope              = var.role_assignment_scope
-  role_definition_id = var.role_definition_id
-  principal_id       = var.principal_id
-  principal_type     = var.principal_type
+module "security_group" {
+  source      = "./modules/security_group"
+  name        = var.name
+  description = var.description
+  vpc_id      = var.vpc_id
 }
