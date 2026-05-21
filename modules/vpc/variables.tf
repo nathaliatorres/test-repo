@@ -1,8 +1,3 @@
-variable "region" {
-  description = "AWS region where resources will be managed"
-  type        = string
-}
-
 variable "cidr_block" {
   description = "The IPv4 CIDR block for the VPC"
   type        = string

@@ -1,4 +1,3 @@
-region      = "ap-southeast-1"
-name        = "default"
-description = "default VPC security group"
-vpc_id      = "vpc-05fed6e9ac0f64a6e"
+region           = "ap-southeast-1"
+cidr_block       = "172.31.0.0/16"
+instance_tenancy = "default"

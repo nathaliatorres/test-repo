@@ -1,59 +1,52 @@
-# default-security-group
+# vpc-ap-southeast-1
 
 ## Description
 
-Default VPC security group with self-referencing ingress and all-traffic egress.
+Default VPC infrastructure in ap-southeast-1.
 
 ## Module Overview
 
 | Module | Description |
 |--------|-------------|
-| `security_group` | Manages the default VPC security group |
-
-## Resources
-
-| Resource | Type | Description |
-|----------|------|-------------|
-| `aws_security_group.this` | `aws_security_group` | Default VPC security group |
+| `vpc` | Manages the AWS VPC and its core configuration |
 
 ## Variables Reference
 
 | Name | Type | Description | Default |
 |------|------|-------------|---------|
-| `region` | `string` | AWS region | `"ap-southeast-1"` |
-| `name` | `string` | Name of the security group | `"default"` |
-| `description` | `string` | Description of the security group | `"default VPC security group"` |
-| `vpc_id` | `string` | VPC ID to associate the security group with | `"vpc-05fed6e9ac0f64a6e"` |
+| `region` | `string` | AWS region where resources will be managed | `"ap-southeast-1"` |
+| `cidr_block` | `string` | The IPv4 CIDR block for the VPC | `"172.31.0.0/16"` |
+| `instance_tenancy` | `string` | Tenancy option for instances launched into the VPC | `"default"` |
 
 ## Outputs Reference
 
 | Name | Description |
 |------|-------------|
-| `security_group_id` | ID of the security group |
-| `security_group_arn` | ARN of the security group |
+| `vpc_id` | The ID of the VPC |
 
 ## Usage Instructions
 
 ### 1. Initialize
 
 ```sh
-tofu init
+terraform init
 ```
 
-### 2. Import Existing Resources
+### 2. Import existing resources
 
 ```sh
-./imports.sh tofu
+chmod +x imports.sh
+./imports.sh terraform
 ```
 
 ### 3. Plan
 
 ```sh
-tofu plan -var-file environments/sg.tfvars
+terraform plan -var-file environments/sg.tfvars
 ```
 
 ### 4. Apply
 
 ```sh
-tofu apply -var-file environments/sg.tfvars
+terraform apply -var-file environments/sg.tfvars
 ```
