@@ -1,4 +1,4 @@
-output "vpc_id" {
-  description = "The ID of the VPC"
-  value       = module.vpc.vpc_id
+output "role_assignment_id" {
+  description = "The ID of the role assignment"
+  value       = module.role_assignment.id
 }
