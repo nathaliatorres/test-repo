@@ -1,29 +1,34 @@
 variable "region" {
-  description = "The Azure region for the provider"
+  description = "The Azure region where resources will be deployed"
   type        = string
 }
 
-variable "role_assignment_name" {
-  description = "The UUID/GUID for the role assignment"
+variable "virtual_network_name" {
+  description = "The name of the virtual network"
   type        = string
 }
 
-variable "role_assignment_scope" {
-  description = "The scope at which the role assignment applies"
+variable "resource_group_name" {
+  description = "The name of the resource group"
   type        = string
 }
 
-variable "role_definition_id" {
-  description = "The scoped ID of the role definition to assign"
-  type        = string
+variable "address_space" {
+  description = "The address space used by the virtual network"
+  type        = list(string)
 }
 
-variable "principal_id" {
-  description = "The ID of the principal to assign the role to"
-  type        = string
+variable "tags" {
+  description = "A mapping of tags to assign to resources"
+  type        = map(string)
+  default     = {}
 }
 
-variable "principal_type" {
-  description = "The type of the principal_id (User, Group, or ServicePrincipal)"
-  type        = string
+variable "subnets" {
+  description = "Map of subnets to create within the virtual network"
+  type = map(object({
+    name             = string
+    address_prefixes = list(string)
+  }))
+  default = {}
 }

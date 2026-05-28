@@ -1,6 +1,23 @@
-region                = "global"
-role_assignment_name  = "1bb730a7-e678-46e3-b447-f8787ec2d6a5"
-role_assignment_scope = "/"
-role_definition_id    = "/subscriptions/618c8e34-b87b-44e8-bb3a-b2de95df60ed/providers/Microsoft.Authorization/roleDefinitions/18d7d88d-d35e-4fb5-a5c3-7773c20a72d9"
-principal_id          = "5c41be92-5dc7-4d90-a130-d2cec7521f18"
-principal_type        = "User"
+region               = "germanywestcentral"
+virtual_network_name = "Kabibeispiel"
+resource_group_name  = "kabibeispiel"
+address_space        = ["10.100.0.0/16"]
+
+tags = {
+  ENV = "test"
+}
+
+subnets = {
+  subnet1 = {
+    name             = "subnet1"
+    address_prefixes = ["10.100.1.0/24"]
+  }
+  subnet2 = {
+    name             = "subnet2"
+    address_prefixes = ["10.100.2.0/24"]
+  }
+  subnet3 = {
+    name             = "subnet3"
+    address_prefixes = ["10.100.3.0/24"]
+  }
+}
