@@ -1,37 +1,40 @@
-# role-assignment-stack
+# kabibeispiel-virtual-network
 
 ## Description
 
-Azure role assignment granting a user a specific role at root scope.
+Virtual network with three subnets in the kabibeispiel resource group, deployed in the `germanywestcentral` Azure region.
 
 ## Module Overview
 
-| Module | Description | Source |
-|--------|-------------|--------|
-| `role_assignment` | Manages an Azure role assignment for a user principal | `./modules/role_assignment` |
+| Module | Description |
+|--------|-------------|
+| `virtual_network` | Manages the Kabibeispiel virtual network and its child subnets |
 
 ## Resources
 
-| Resource Type | Logical Name | Description |
-|---------------|--------------|-------------|
-| `azurerm_role_assignment` | `this` | Role assignment granting a principal a role at a given scope |
+| Resource Type | Name | Description |
+|---------------|------|-------------|
+| `azurerm_virtual_network` | `this` | The Kabibeispiel virtual network |
+| `azurerm_subnet` | `this` (for_each) | Three subnets within the virtual network |
 
 ## Variables Reference
 
 | Name | Type | Description | Default |
 |------|------|-------------|---------|
-| `region` | `string` | The Azure region for the provider | — |
-| `role_assignment_name` | `string` | The UUID/GUID for the role assignment | — |
-| `role_assignment_scope` | `string` | The scope at which the role assignment applies | — |
-| `role_definition_id` | `string` | The scoped ID of the role definition to assign | — |
-| `principal_id` | `string` | The ID of the principal to assign the role to | — |
-| `principal_type` | `string` | The type of the principal_id (User, Group, or ServicePrincipal) | — |
+| `region` | `string` | The Azure region where resources will be deployed | — |
+| `virtual_network_name` | `string` | The name of the virtual network | — |
+| `resource_group_name` | `string` | The name of the resource group | — |
+| `address_space` | `list(string)` | The address space used by the virtual network | — |
+| `tags` | `map(string)` | A mapping of tags to assign to resources | `{}` |
+| `subnets` | `map(object({...}))` | Map of subnets to create within the virtual network | `{}` |
 
 ## Outputs Reference
 
 | Name | Description |
 |------|-------------|
-| `role_assignment_id` | The ID of the role assignment |
+| `virtual_network_id` | The ID of the virtual network |
+| `virtual_network_name` | The name of the virtual network |
+| `subnet_ids` | A map of subnet keys to subnet IDs |
 
 ## Usage Instructions
 

@@ -1,8 +1,10 @@
-module "role_assignment" {
-  source             = "./modules/role_assignment"
-  name               = var.role_assignment_name
-  scope              = var.role_assignment_scope
-  role_definition_id = var.role_definition_id
-  principal_id       = var.principal_id
-  principal_type     = var.principal_type
+module "virtual_network" {
+  source = "./modules/virtual_network"
+
+  name                = var.virtual_network_name
+  resource_group_name = var.resource_group_name
+  location            = var.region
+  address_space       = var.address_space
+  tags                = var.tags
+  subnets             = var.subnets
 }
