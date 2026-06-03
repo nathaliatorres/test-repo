@@ -1,6 +1,35 @@
-region                = "global"
-role_assignment_name  = "1bb730a7-e678-46e3-b447-f8787ec2d6a5"
-role_assignment_scope = "/"
-role_definition_id    = "/subscriptions/618c8e34-b87b-44e8-bb3a-b2de95df60ed/providers/Microsoft.Authorization/roleDefinitions/18d7d88d-d35e-4fb5-a5c3-7773c20a72d9"
-principal_id          = "5c41be92-5dc7-4d90-a130-d2cec7521f18"
-principal_type        = "User"
+region = "europe-west3"
+zone   = "europe-west3-a"
+
+subnetwork_name                     = "vdesktop-subnet"
+subnetwork_network                  = "vdesktop-vpc"
+subnetwork_ip_cidr_range            = "10.20.0.0/24"
+subnetwork_purpose                  = "PRIVATE"
+subnetwork_private_ip_google_access = true
+
+disk_name  = "vdesktop-vm"
+disk_type  = "pd-balanced"
+disk_size  = 100
+disk_image = "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-2404-noble-amd64-v20260422"
+
+instance_name                           = "vdesktop-vm"
+instance_machine_type                   = "n2-standard-8"
+instance_can_ip_forward                 = false
+instance_deletion_protection            = false
+instance_tags                           = ["vdesktop-vm"]
+instance_labels                         = {
+  goog-terraform-provisioned = "true"
+  managed                    = "terraform"
+  purpose                    = "virtual-desktop"
+}
+instance_metadata                       = {
+  enable-oslogin = "FALSE"
+}
+instance_service_account_email          = "597595105496-compute@developer.gserviceaccount.com"
+instance_service_account_scopes         = ["https://www.googleapis.com/auth/cloud-platform"]
+instance_scheduling_automatic_restart   = true
+instance_scheduling_on_host_maintenance = "MIGRATE"
+instance_scheduling_provisioning_model  = "STANDARD"
+instance_enable_secure_boot             = true
+instance_enable_vtpm                    = true
+instance_enable_integrity_monitoring    = true
