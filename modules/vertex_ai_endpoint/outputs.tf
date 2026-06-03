@@ -1,4 +1,4 @@
 output "endpoint_id" {
   description = "The ID of the Vertex AI endpoint"
-  value       = module.vertex_ai_endpoint.endpoint_id
+  value       = google_vertex_ai_endpoint.this.id
 }

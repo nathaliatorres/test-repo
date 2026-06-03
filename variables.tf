@@ -1,29 +1,30 @@
+variable "project" {
+  type        = string
+  description = "The GCP project ID"
+}
+
 variable "region" {
-  description = "The Azure region for the provider"
   type        = string
+  description = "The GCP region for all resources"
 }
 
-variable "role_assignment_name" {
-  description = "The UUID/GUID for the role assignment"
+variable "endpoint_name" {
   type        = string
+  description = "The resource name of the Vertex AI endpoint (numeric, no leading zeros, at most 10 digits)"
 }
 
-variable "role_assignment_scope" {
-  description = "The scope at which the role assignment applies"
+variable "endpoint_display_name" {
   type        = string
+  description = "The display name of the Vertex AI endpoint"
 }
 
-variable "role_definition_id" {
-  description = "The scoped ID of the role definition to assign"
+variable "endpoint_description" {
   type        = string
+  description = "The description of the Vertex AI endpoint"
 }
 
-variable "principal_id" {
-  description = "The ID of the principal to assign the role to"
-  type        = string
-}
-
-variable "principal_type" {
-  description = "The type of the principal_id (User, Group, or ServicePrincipal)"
-  type        = string
+variable "endpoint_labels" {
+  type        = map(string)
+  description = "Labels with user-defined metadata to organize the endpoint"
+  default     = {}
 }

@@ -1,60 +1,57 @@
-# role-assignment-stack
+# inv-scan-vertex-ai
 
 ## Description
 
-Azure role assignment granting a user a specific role at root scope.
+Vertex AI model and endpoint infrastructure for inventory scanning.
 
 ## Module Overview
 
-| Module | Description | Source |
-|--------|-------------|--------|
-| `role_assignment` | Manages an Azure role assignment for a user principal | `./modules/role_assignment` |
-
-## Resources
-
-| Resource Type | Logical Name | Description |
-|---------------|--------------|-------------|
-| `azurerm_role_assignment` | `this` | Role assignment granting a principal a role at a given scope |
+| Module | Description |
+|--------|-------------|
+| `vertex_ai_endpoint` | Manages the Vertex AI endpoint for inventory scanning |
+| `vertex_ai_model` | Manages the Vertex AI model for inventory scanning |
 
 ## Variables Reference
 
 | Name | Type | Description | Default |
 |------|------|-------------|---------|
-| `region` | `string` | The Azure region for the provider | — |
-| `role_assignment_name` | `string` | The UUID/GUID for the role assignment | — |
-| `role_assignment_scope` | `string` | The scope at which the role assignment applies | — |
-| `role_definition_id` | `string` | The scoped ID of the role definition to assign | — |
-| `principal_id` | `string` | The ID of the principal to assign the role to | — |
-| `principal_type` | `string` | The type of the principal_id (User, Group, or ServicePrincipal) | — |
+| `region` | `string` | The GCP region for all resources | — |
+| `endpoint_name` | `string` | The resource name of the Vertex AI endpoint (numeric, no leading zeros, at most 10 digits) | — |
+| `endpoint_display_name` | `string` | The display name of the Vertex AI endpoint | — |
+| `endpoint_description` | `string` | The description of the Vertex AI endpoint | — |
+| `endpoint_labels` | `map(string)` | Labels with user-defined metadata to organize the endpoint | `{}` |
+| `model_display_name` | `string` | The display name of the Vertex AI model | — |
+| `model_container_image_uri` | `string` | The URI of the container image to use for the Vertex AI model | — |
 
 ## Outputs Reference
 
 | Name | Description |
 |------|-------------|
-| `role_assignment_id` | The ID of the role assignment |
+| `endpoint_id` | The ID of the Vertex AI endpoint |
+| `model_id` | The ID of the Vertex AI model |
 
 ## Usage Instructions
 
 ### 1. Initialize
 
 ```sh
-tofu init
+terraform init
 ```
 
 ### 2. Import existing resources
 
 ```sh
-./imports.sh tofu
+./imports.sh terraform
 ```
 
 ### 3. Plan
 
 ```sh
-tofu plan -var-file environments/sg.tfvars
+terraform plan -var-file environments/sg.tfvars
 ```
 
 ### 4. Apply
 
 ```sh
-tofu apply -var-file environments/sg.tfvars
+terraform apply -var-file environments/sg.tfvars
 ```

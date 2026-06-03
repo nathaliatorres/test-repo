@@ -1,8 +1,9 @@
-module "role_assignment" {
-  source             = "./modules/role_assignment"
-  name               = var.role_assignment_name
-  scope              = var.role_assignment_scope
-  role_definition_id = var.role_definition_id
-  principal_id       = var.principal_id
-  principal_type     = var.principal_type
+module "vertex_ai_endpoint" {
+  source = "./modules/vertex_ai_endpoint"
+
+  name         = var.endpoint_name
+  display_name = var.endpoint_display_name
+  location     = var.region
+  description  = var.endpoint_description
+  labels       = var.endpoint_labels
 }
