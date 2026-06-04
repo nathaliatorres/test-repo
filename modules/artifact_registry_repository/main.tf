@@ -1,6 +1,4 @@
-module "artifact_registry_repository" {
-  source = "./modules/artifact_registry_repository"
-
+resource "google_artifact_registry_repository" "this" {
   repository_id          = var.repository_id
   format                 = var.format
   location               = var.location
