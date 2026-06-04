@@ -1,3 +1,4 @@
+project                                     = "stackguardian-nonprod"
 region                                      = "europe-west3"
 compute_network_name                        = "vdesktop-vpc"
 compute_network_auto_create_subnetworks     = false
@@ -8,6 +9,7 @@ compute_subnetwork_region                   = "europe-west3"
 compute_subnetwork_private_ip_google_access = true
 compute_subnetwork_purpose                  = "PRIVATE"
 compute_firewall_name                       = "vdesktop-allow-ssh"
+compute_firewall_description                = "Allow SSH for initial provisioning. Defaults to IAP range only."
 compute_firewall_direction                  = "INGRESS"
 compute_firewall_disabled                   = false
 compute_firewall_priority                   = 1000

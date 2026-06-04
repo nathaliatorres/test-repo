@@ -19,6 +19,7 @@ module "compute_firewall" {
   source         = "./modules/compute_firewall"
   name           = var.compute_firewall_name
   network        = module.compute_network.self_link
+  description    = var.compute_firewall_description
   direction      = var.compute_firewall_direction
   disabled       = var.compute_firewall_disabled
   priority       = var.compute_firewall_priority

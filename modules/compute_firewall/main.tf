@@ -1,6 +1,7 @@
 resource "google_compute_firewall" "this" {
   name          = var.name
   network       = var.network
+  description   = var.description
   direction     = var.direction
   disabled      = var.disabled
   priority      = var.priority

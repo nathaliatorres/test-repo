@@ -1,3 +1,8 @@
+variable "project" {
+  description = "GCP project ID"
+  type        = string
+}
+
 variable "region" {
   description = "GCP region for the stack"
   type        = string
@@ -45,6 +50,11 @@ variable "compute_subnetwork_purpose" {
 
 variable "compute_firewall_name" {
   description = "Name of the firewall rule"
+  type        = string
+}
+
+variable "compute_firewall_description" {
+  description = "Description of the firewall rule"
   type        = string
 }
 

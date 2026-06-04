@@ -8,6 +8,12 @@ variable "network" {
   type        = string
 }
 
+variable "description" {
+  description = "Description of the firewall rule"
+  type        = string
+  default     = ""
+}
+
 variable "direction" {
   description = "Direction of traffic (INGRESS or EGRESS)"
   type        = string
