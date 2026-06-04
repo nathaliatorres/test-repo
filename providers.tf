@@ -1,3 +1,3 @@
-provider "azurerm" {
-  features {}
+provider "google" {
+  region = var.region
 }

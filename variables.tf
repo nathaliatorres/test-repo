@@ -1,29 +1,14 @@
 variable "region" {
-  description = "The Azure region for the provider"
   type        = string
+  description = "The region for the provider"
 }
 
-variable "role_assignment_name" {
-  description = "The UUID/GUID for the role assignment"
+variable "crypto_key" {
   type        = string
+  description = "The full resource name of the cryptoKey associated with the CryptoKeyVersion"
 }
 
-variable "role_assignment_scope" {
-  description = "The scope at which the role assignment applies"
+variable "state" {
   type        = string
-}
-
-variable "role_definition_id" {
-  description = "The scoped ID of the role definition to assign"
-  type        = string
-}
-
-variable "principal_id" {
-  description = "The ID of the principal to assign the role to"
-  type        = string
-}
-
-variable "principal_type" {
-  description = "The type of the principal_id (User, Group, or ServicePrincipal)"
-  type        = string
+  description = "The current state of the CryptoKeyVersion (ENABLED or DISABLED)"
 }

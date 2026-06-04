@@ -1,60 +1,53 @@
-# role-assignment-stack
+# kms-crypto-key-version-clara-gcp-bucket
 
 ## Description
 
-Azure role assignment granting a user a specific role at root scope.
+Manages a Google KMS CryptoKeyVersion for the clara-gcp-bucket crypto key.
 
 ## Module Overview
 
-| Module | Description | Source |
-|--------|-------------|--------|
-| `role_assignment` | Manages an Azure role assignment for a user principal | `./modules/role_assignment` |
-
-## Resources
-
-| Resource Type | Logical Name | Description |
-|---------------|--------------|-------------|
-| `azurerm_role_assignment` | `this` | Role assignment granting a principal a role at a given scope |
+| Module | Description |
+|--------|-------------|
+| `kms_crypto_key_version` | Manages the Google KMS CryptoKeyVersion associated with the clara-gcp-bucket crypto key |
 
 ## Variables Reference
 
-| Name | Type | Description | Default |
-|------|------|-------------|---------|
-| `region` | `string` | The Azure region for the provider | — |
-| `role_assignment_name` | `string` | The UUID/GUID for the role assignment | — |
-| `role_assignment_scope` | `string` | The scope at which the role assignment applies | — |
-| `role_definition_id` | `string` | The scoped ID of the role definition to assign | — |
-| `principal_id` | `string` | The ID of the principal to assign the role to | — |
-| `principal_type` | `string` | The type of the principal_id (User, Group, or ServicePrincipal) | — |
+| Name | Type | Description |
+|------|------|-------------|
+| `region` | `string` | The region for the provider |
+| `crypto_key` | `string` | The full resource name of the cryptoKey associated with the CryptoKeyVersion |
+| `state` | `string` | The current state of the CryptoKeyVersion (ENABLED or DISABLED) |
 
 ## Outputs Reference
 
 | Name | Description |
 |------|-------------|
-| `role_assignment_id` | The ID of the role assignment |
+| `kms_crypto_key_version_id` | The identifier of the KMS CryptoKeyVersion |
+| `kms_crypto_key_version_name` | The resource name of the KMS CryptoKeyVersion |
 
 ## Usage Instructions
 
 ### 1. Initialize
 
 ```sh
-tofu init
+terraform init
 ```
 
 ### 2. Import existing resources
 
 ```sh
-./imports.sh tofu
+chmod +x imports.sh
+./imports.sh terraform
 ```
 
 ### 3. Plan
 
 ```sh
-tofu plan -var-file environments/sg.tfvars
+terraform plan -var-file environments/sg.tfvars
 ```
 
 ### 4. Apply
 
 ```sh
-tofu apply -var-file environments/sg.tfvars
+terraform apply -var-file environments/sg.tfvars
 ```
