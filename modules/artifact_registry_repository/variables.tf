@@ -1,13 +1,3 @@
-variable "region" {
-  description = "The region for the provider"
-  type        = string
-}
-
-variable "project" {
-  description = "The GCP project ID"
-  type        = string
-}
-
 variable "repository_id" {
   description = "The last part of the repository name"
   type        = string

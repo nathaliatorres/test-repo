@@ -1,60 +1,58 @@
-# role-assignment-stack
+# artifact-registry-repo-tf-test
 
 ## Description
 
-Azure role assignment granting a user a specific role at root scope.
+Google Artifact Registry repository for Docker images in us-central1.
 
 ## Module Overview
 
-| Module | Description | Source |
-|--------|-------------|--------|
-| `role_assignment` | Manages an Azure role assignment for a user principal | `./modules/role_assignment` |
-
-## Resources
-
-| Resource Type | Logical Name | Description |
-|---------------|--------------|-------------|
-| `azurerm_role_assignment` | `this` | Role assignment granting a principal a role at a given scope |
+| Module | Description |
+|--------|-------------|
+| `artifact_registry_repository` | Manages a Google Artifact Registry repository |
 
 ## Variables Reference
 
 | Name | Type | Description | Default |
 |------|------|-------------|---------|
-| `region` | `string` | The Azure region for the provider | — |
-| `role_assignment_name` | `string` | The UUID/GUID for the role assignment | — |
-| `role_assignment_scope` | `string` | The scope at which the role assignment applies | — |
-| `role_definition_id` | `string` | The scoped ID of the role definition to assign | — |
-| `principal_id` | `string` | The ID of the principal to assign the role to | — |
-| `principal_type` | `string` | The type of the principal_id (User, Group, or ServicePrincipal) | — |
+| `region` | `string` | The region for the provider | — |
+| `repository_id` | `string` | The last part of the repository name | — |
+| `format` | `string` | The format of packages stored in the repository | — |
+| `location` | `string` | The name of the repository's location | — |
+| `mode` | `string` | The mode configures the repository to serve artifacts from different sources | — |
+| `labels` | `map(string)` | Labels with user-defined metadata | — |
+| `cleanup_policy_dry_run` | `bool` | If true, the cleanup pipeline is prevented from deleting versions in this repository | — |
 
 ## Outputs Reference
 
 | Name | Description |
 |------|-------------|
-| `role_assignment_id` | The ID of the role assignment |
+| `repository_id` | The repository ID |
+| `name` | The name of the repository |
+| `registry_uri` | The repository endpoint URI |
 
 ## Usage Instructions
 
 ### 1. Initialize
 
 ```sh
-tofu init
+terraform init
 ```
 
 ### 2. Import existing resources
 
 ```sh
-./imports.sh tofu
+chmod +x imports.sh
+./imports.sh terraform
 ```
 
 ### 3. Plan
 
 ```sh
-tofu plan -var-file environments/sg.tfvars
+terraform plan -var-file environments/sg.tfvars
 ```
 
 ### 4. Apply
 
 ```sh
-tofu apply -var-file environments/sg.tfvars
+terraform apply -var-file environments/sg.tfvars
 ```
