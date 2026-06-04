@@ -1,37 +1,37 @@
-# role-assignment-stack
+# inv-scan-network
 
 ## Description
 
-Azure role assignment granting a user a specific role at root scope.
+VPC network and subnet infrastructure for inv-scan workloads. This stack provisions a custom-mode VPC network and an associated subnetwork in GCP's `us-central1` region.
 
 ## Module Overview
 
 | Module | Description | Source |
 |--------|-------------|--------|
-| `role_assignment` | Manages an Azure role assignment for a user principal | `./modules/role_assignment` |
-
-## Resources
-
-| Resource Type | Logical Name | Description |
-|---------------|--------------|-------------|
-| `azurerm_role_assignment` | `this` | Role assignment granting a principal a role at a given scope |
+| `compute_network` | Manages the inv-scan VPC network | `./modules/compute_network` |
+| `compute_subnetwork` | Manages the inv-scan subnet within the VPC network | `./modules/compute_subnetwork` |
 
 ## Variables Reference
 
 | Name | Type | Description | Default |
 |------|------|-------------|---------|
-| `region` | `string` | The Azure region for the provider | — |
-| `role_assignment_name` | `string` | The UUID/GUID for the role assignment | — |
-| `role_assignment_scope` | `string` | The scope at which the role assignment applies | — |
-| `role_definition_id` | `string` | The scoped ID of the role definition to assign | — |
-| `principal_id` | `string` | The ID of the principal to assign the role to | — |
-| `principal_type` | `string` | The type of the principal_id (User, Group, or ServicePrincipal) | — |
+| `region` | `string` | The GCP region for resources | — |
+| `network_name` | `string` | Name of the VPC network | — |
+| `network_auto_create_subnetworks` | `bool` | Whether to auto-create subnetworks in the VPC network | — |
+| `network_routing_mode` | `string` | Network-wide routing mode (REGIONAL or GLOBAL) | — |
+| `subnetwork_name` | `string` | Name of the subnetwork | — |
+| `subnetwork_ip_cidr_range` | `string` | The IP CIDR range for the subnetwork | — |
+| `subnetwork_private_ip_google_access` | `bool` | Whether VMs without external IPs can access Google APIs via Private Google Access | — |
+| `subnetwork_purpose` | `string` | The purpose of the subnetwork | — |
 
 ## Outputs Reference
 
 | Name | Description |
 |------|-------------|
-| `role_assignment_id` | The ID of the role assignment |
+| `network_self_link` | The self_link of the VPC network |
+| `network_name` | The name of the VPC network |
+| `subnetwork_self_link` | The self_link of the subnetwork |
+| `subnetwork_name` | The name of the subnetwork |
 
 ## Usage Instructions
 
@@ -44,6 +44,7 @@ tofu init
 ### 2. Import existing resources
 
 ```sh
+chmod +x imports.sh
 ./imports.sh tofu
 ```
 
@@ -58,3 +59,10 @@ tofu plan -var-file environments/sg.tfvars
 ```sh
 tofu apply -var-file environments/sg.tfvars
 ```
+
+## Resource Inventory
+
+| Resource | Address | Import ID |
+|----------|---------|-----------|
+| `google_compute_network` | `module.compute_network.google_compute_network.this` | `inv-scan-vpc` |
+| `google_compute_subnetwork` | `module.compute_subnetwork.google_compute_subnetwork.this` | `us-central1/inv-scan-subnet` |
