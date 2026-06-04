@@ -1,60 +1,71 @@
-# role-assignment-stack
+# sg-test-clara-network
 
 ## Description
 
-Azure role assignment granting a user a specific role at root scope.
+VPC network and subnet infrastructure for sg-test-clara. This stack provisions a custom-mode VPC network and a primary subnetwork with secondary IP ranges in the `europe-west1` region.
 
 ## Module Overview
 
-| Module | Description | Source |
-|--------|-------------|--------|
-| `role_assignment` | Manages an Azure role assignment for a user principal | `./modules/role_assignment` |
+| Module | Description |
+|--------|-------------|
+| `compute_network` | Manages the VPC network `sg-test-clara` |
+| `compute_subnetwork` | Manages the subnet `subnet-01-clara` within the VPC network |
 
 ## Resources
 
-| Resource Type | Logical Name | Description |
-|---------------|--------------|-------------|
-| `azurerm_role_assignment` | `this` | Role assignment granting a principal a role at a given scope |
+| Resource | Type | Description |
+|----------|------|-------------|
+| `google_compute_network.this` | `google_compute_network` | Custom-mode VPC network with GLOBAL routing |
+| `google_compute_subnetwork.this` | `google_compute_subnetwork` | Primary subnet with Private Google Access and secondary IP ranges |
 
 ## Variables Reference
 
-| Name | Type | Description | Default |
-|------|------|-------------|---------|
-| `region` | `string` | The Azure region for the provider | — |
-| `role_assignment_name` | `string` | The UUID/GUID for the role assignment | — |
-| `role_assignment_scope` | `string` | The scope at which the role assignment applies | — |
-| `role_definition_id` | `string` | The scoped ID of the role definition to assign | — |
-| `principal_id` | `string` | The ID of the principal to assign the role to | — |
-| `principal_type` | `string` | The type of the principal_id (User, Group, or ServicePrincipal) | — |
+| Variable | Type | Default | Description |
+|----------|------|---------|-------------|
+| `region` | `string` | — | The GCP region for this stack |
+| `compute_network_name` | `string` | — | Name of the VPC network |
+| `compute_network_auto_create_subnetworks` | `bool` | — | Whether to auto-create subnetworks |
+| `compute_network_routing_mode` | `string` | — | Network-wide routing mode (REGIONAL or GLOBAL) |
+| `compute_subnetwork_name` | `string` | — | Name of the subnetwork |
+| `compute_subnetwork_ip_cidr_range` | `string` | — | The primary IP CIDR range for the subnetwork |
+| `compute_subnetwork_region` | `string` | — | The GCP region for the subnetwork |
+| `compute_subnetwork_private_ip_google_access` | `bool` | — | Whether VMs without external IPs can access Google APIs via Private Google Access |
+| `compute_subnetwork_purpose` | `string` | — | The purpose of the subnetwork |
+| `compute_subnetwork_secondary_ip_range` | `list(object)` | `[]` | Secondary IP ranges for the subnetwork |
 
 ## Outputs Reference
 
-| Name | Description |
-|------|-------------|
-| `role_assignment_id` | The ID of the role assignment |
+| Output | Description |
+|--------|-------------|
+| `compute_network_self_link` | The URI of the VPC network |
+| `compute_network_id` | The ID of the VPC network |
+| `compute_subnetwork_id` | The ID of the subnetwork |
+| `compute_subnetwork_self_link` | The URI of the subnetwork |
 
 ## Usage Instructions
 
 ### 1. Initialize
 
 ```sh
-tofu init
+terraform init
 ```
 
 ### 2. Import existing resources
 
 ```sh
+./imports.sh terraform
+# or for OpenTofu:
 ./imports.sh tofu
 ```
 
 ### 3. Plan
 
 ```sh
-tofu plan -var-file environments/sg.tfvars
+terraform plan -var-file environments/sg.tfvars
 ```
 
 ### 4. Apply
 
 ```sh
-tofu apply -var-file environments/sg.tfvars
+terraform apply -var-file environments/sg.tfvars
 ```
