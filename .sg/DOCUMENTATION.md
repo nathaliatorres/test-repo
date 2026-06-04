@@ -1,39 +1,69 @@
-# role-assignment-stack
+# vdesktop-network-stack
 
 ## Description
 
-Azure role assignment granting a user a specific role at root scope.
+VDesktop VPC network with subnet and SSH firewall rule deployed in GCP region `europe-west3`.
 
-## Module Overview
+## Stack Overview
 
-| Module | Description | Source |
-|--------|-------------|--------|
-| `role_assignment` | Manages an Azure role assignment for a user principal | `./modules/role_assignment` |
+This stack provisions the core networking components for the VDesktop environment:
 
-## Resources
+| Module | Description |
+|--------|-------------|
+| `compute_network` | Manages the vdesktop VPC network (`vdesktop-vpc`) |
+| `compute_subnetwork` | Manages the vdesktop subnet (`vdesktop-subnet`) within the VPC |
+| `compute_firewall` | Manages the SSH allow firewall rule (`vdesktop-allow-ssh`) |
 
-| Resource Type | Logical Name | Description |
-|---------------|--------------|-------------|
-| `azurerm_role_assignment` | `this` | Role assignment granting a principal a role at a given scope |
+## Architecture
+
+```
+compute_network (vdesktop-vpc)
+  └── compute_subnetwork (vdesktop-subnet, 10.20.0.0/24)
+  └── compute_firewall (vdesktop-allow-ssh, TCP/22 INGRESS)
+```
+
+The subnetwork and firewall rule both reference the VPC network via its `self_link` output, wired through root module variables.
 
 ## Variables Reference
 
-| Name | Type | Description | Default |
-|------|------|-------------|---------|
-| `region` | `string` | The Azure region for the provider | — |
-| `role_assignment_name` | `string` | The UUID/GUID for the role assignment | — |
-| `role_assignment_scope` | `string` | The scope at which the role assignment applies | — |
-| `role_definition_id` | `string` | The scoped ID of the role definition to assign | — |
-| `principal_id` | `string` | The ID of the principal to assign the role to | — |
-| `principal_type` | `string` | The type of the principal_id (User, Group, or ServicePrincipal) | — |
+| Variable | Type | Description | Default |
+|----------|------|-------------|---------|
+| `region` | `string` | GCP region for the stack | `"europe-west3"` |
+| `compute_network_name` | `string` | Name of the VPC network | `"vdesktop-vpc"` |
+| `compute_network_auto_create_subnetworks` | `bool` | Whether to auto-create subnetworks | `false` |
+| `compute_network_routing_mode` | `string` | Network-wide routing mode | `"REGIONAL"` |
+| `compute_subnetwork_name` | `string` | Name of the subnetwork | `"vdesktop-subnet"` |
+| `compute_subnetwork_ip_cidr_range` | `string` | IP CIDR range for the subnetwork | `"10.20.0.0/24"` |
+| `compute_subnetwork_region` | `string` | GCP region for the subnetwork | `"europe-west3"` |
+| `compute_subnetwork_private_ip_google_access` | `bool` | Private Google Access enabled | `true` |
+| `compute_subnetwork_purpose` | `string` | Purpose of the subnetwork | `"PRIVATE"` |
+| `compute_firewall_name` | `string` | Name of the firewall rule | `"vdesktop-allow-ssh"` |
+| `compute_firewall_direction` | `string` | Direction of traffic | `"INGRESS"` |
+| `compute_firewall_disabled` | `bool` | Whether the firewall rule is disabled | `false` |
+| `compute_firewall_priority` | `number` | Priority for the firewall rule | `1000` |
+| `compute_firewall_source_ranges` | `list(string)` | Source IP CIDR ranges | `["0.0.0.0/0"]` |
+| `compute_firewall_target_tags` | `list(string)` | Target instance tags | `["vdesktop-vm"]` |
+| `compute_firewall_allow_protocol` | `string` | IP protocol for the allow rule | `"tcp"` |
+| `compute_firewall_allow_ports` | `list(string)` | Ports for the allow rule | `["22"]` |
 
 ## Outputs Reference
 
-| Name | Description |
-|------|-------------|
-| `role_assignment_id` | The ID of the role assignment |
+| Output | Description |
+|--------|-------------|
+| `compute_network_self_link` | The URI of the VPC network |
+| `compute_network_name` | The name of the VPC network |
+| `compute_subnetwork_self_link` | The URI of the subnetwork |
+| `compute_subnetwork_name` | The name of the subnetwork |
+| `compute_firewall_self_link` | The URI of the firewall rule |
+| `compute_firewall_name` | The name of the firewall rule |
 
 ## Usage Instructions
+
+### Prerequisites
+
+- OpenTofu >= 1.0
+- GCP credentials configured (e.g., `GOOGLE_APPLICATION_CREDENTIALS` or `gcloud auth application-default login`)
+- GCP project set in provider or via `GOOGLE_PROJECT` environment variable
 
 ### 1. Initialize
 
@@ -41,9 +71,10 @@ Azure role assignment granting a user a specific role at root scope.
 tofu init
 ```
 
-### 2. Import existing resources
+### 2. Import Existing Resources
 
 ```sh
+chmod +x imports.sh
 ./imports.sh tofu
 ```
 
