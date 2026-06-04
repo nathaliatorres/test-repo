@@ -1,6 +1,20 @@
-region                = "global"
-role_assignment_name  = "1bb730a7-e678-46e3-b447-f8787ec2d6a5"
-role_assignment_scope = "/"
-role_definition_id    = "/subscriptions/618c8e34-b87b-44e8-bb3a-b2de95df60ed/providers/Microsoft.Authorization/roleDefinitions/18d7d88d-d35e-4fb5-a5c3-7773c20a72d9"
-principal_id          = "5c41be92-5dc7-4d90-a130-d2cec7521f18"
-principal_type        = "User"
+project                                     = "stackguardian-nonprod"
+region                                      = "europe-west1"
+compute_network_name                        = "sg-test-clara"
+compute_network_auto_create_subnetworks     = false
+compute_network_routing_mode                = "GLOBAL"
+compute_subnetwork_name                     = "subnet-01-clara"
+compute_subnetwork_ip_cidr_range            = "10.10.10.0/24"
+compute_subnetwork_region                   = "europe-west1"
+compute_subnetwork_private_ip_google_access = true
+compute_subnetwork_purpose                  = "PRIVATE"
+compute_subnetwork_secondary_ip_range = [
+  {
+    range_name    = "range-1"
+    ip_cidr_range = "10.0.1.0/24"
+  },
+  {
+    range_name    = "range-2"
+    ip_cidr_range = "10.0.2.0/24"
+  }
+]
