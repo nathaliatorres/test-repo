@@ -1,6 +1,10 @@
-region                = "global"
-role_assignment_name  = "1bb730a7-e678-46e3-b447-f8787ec2d6a5"
-role_assignment_scope = "/"
-role_definition_id    = "/subscriptions/618c8e34-b87b-44e8-bb3a-b2de95df60ed/providers/Microsoft.Authorization/roleDefinitions/18d7d88d-d35e-4fb5-a5c3-7773c20a72d9"
-principal_id          = "5c41be92-5dc7-4d90-a130-d2cec7521f18"
-principal_type        = "User"
+# BigQuery table instances — one entry per discovered table.
+bigquery_tables = {
+  students = {
+    project                  = "stackguardian-nonprod"
+    dataset_id               = "sg_infra_2_code"
+    table_id                 = "students"
+    description              = ""
+    require_partition_filter = false
+  }
+}

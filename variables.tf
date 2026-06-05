@@ -1,29 +1,12 @@
-variable "region" {
-  description = "The Azure region for the provider"
-  type        = string
-}
-
-variable "role_assignment_name" {
-  description = "The UUID/GUID for the role assignment"
-  type        = string
-}
-
-variable "role_assignment_scope" {
-  description = "The scope at which the role assignment applies"
-  type        = string
-}
-
-variable "role_definition_id" {
-  description = "The scoped ID of the role definition to assign"
-  type        = string
-}
-
-variable "principal_id" {
-  description = "The ID of the principal to assign the role to"
-  type        = string
-}
-
-variable "principal_type" {
-  description = "The type of the principal_id (User, Group, or ServicePrincipal)"
-  type        = string
+# Map of BigQuery table instances keyed by a stable snake_case identifier.
+variable "bigquery_tables" {
+  description = "Map of BigQuery table instances to manage."
+  type = map(object({
+    project                  = string
+    dataset_id               = string
+    table_id                 = string
+    description              = optional(string, "")
+    require_partition_filter = optional(bool, false)
+  }))
+  default = {}
 }

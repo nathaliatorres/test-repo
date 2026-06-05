@@ -1,7 +1,5 @@
 terraform {
   required_providers {
-    azurerm = {
-      source = "hashicorp/azurerm"
-    }
+    google = { source = "hashicorp/google" }
   }
 }
