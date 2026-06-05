@@ -1,8 +1,14 @@
-module "role_assignment" {
-  source             = "./modules/role_assignment"
-  name               = var.role_assignment_name
-  scope              = var.role_assignment_scope
-  role_definition_id = var.role_definition_id
-  principal_id       = var.principal_id
-  principal_type     = var.principal_type
+# Root module: wires the bigquery_table child module for every table instance.
+module "bigquery_table" {
+  source   = "./modules/bigquery_table"
+  for_each = var.bigquery_tables
+
+  # Identity
+  project    = each.value.project
+  dataset_id = each.value.dataset_id
+  table_id   = each.value.table_id
+
+  # Optional configuration
+  description              = each.value.description
+  require_partition_filter = each.value.require_partition_filter
 }

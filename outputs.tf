@@ -1,4 +1,5 @@
-output "role_assignment_id" {
-  description = "The ID of the role assignment"
-  value       = module.role_assignment.id
+# Re-export table self_links for downstream consumers.
+output "bigquery_table_self_links" {
+  description = "Map of self_link values for every managed BigQuery table."
+  value       = { for k, v in module.bigquery_table : k => v.self_link }
 }
